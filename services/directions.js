@@ -86,7 +86,8 @@ Directions.getDirections = function(config) {
     roundaboutExits: v.boolean,
     steps: v.boolean,
     voiceInstructions: v.boolean,
-    voiceUnits: v.string
+    voiceUnits: v.string,
+    urlBase: v.string,
   })(config);
 
   config.profile = config.profile || 'driving';
@@ -171,7 +172,7 @@ Directions.getDirections = function(config) {
 
   return this.client.createRequest({
     method: 'GET',
-    path: '/directions/v5/mapbox/:profile/:coordinates',
+    path: config.urlBase ? config.urlBase : '/directions/v5/mapbox/:profile/:coordinates',
     params: {
       profile: config.profile,
       coordinates: path.coordinates.join(';')
